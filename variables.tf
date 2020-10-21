@@ -5,5 +5,5 @@ variable "network-name" {
 
 variable "project_id" {
 	type = string
-	default = "quoting-app-293201"
+	default = "quoting-app"
 }
