@@ -1,0 +1,42 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "quoting-app"
+  namespace: "default"
+  labels:
+    app: "quoting-app"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: "quoting-app"
+  template:
+    metadata:
+      labels:
+        app: "quoting-app"
+    spec:
+      containers:
+      - name: "quoting-app"
+        image: gcr.io/quoting-app-293201/quoting-app-server:f37eaec9a6c797d7f439d29c88d71d9ebdc15c6d
+        env:
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-user
+              key: username
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: db-pass
+              key: password
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: db-name
+              key: database
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: db-ip-addr
+              key: db_host
